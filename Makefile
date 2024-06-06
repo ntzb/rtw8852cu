@@ -16,6 +16,9 @@ EXTRA_CFLAGS += -Wno-unused
 #EXTRA_CFLAGS += -Wno-uninitialized
 EXTRA_CFLAGS += -Wno-error=enum-conversion
 EXTRA_CFLAGS += -Wno-error=enum-int-mismatch
+EXTRA_CFLAGS += -Wno-error=implicit-fallthrough
+EXTRA_CFLAGS += -Wno-sizeof-array-div
+
 
 GCC_VER_49 := $(shell echo `$(CC) -dumpversion | cut -f1-2 -d.` \>= 4.9 | bc )
 
@@ -646,7 +649,7 @@ include $(wildcard $(DRV_PATH)/platform/*.mk)
 
 # Import platform specific compile options
 EXTRA_CFLAGS += -I$(src)/platform
-#_PLATFORM_FILES := platform/platform_ops.o
+_PLATFORM_FILES := platform/platform_ops.o
 OBJS += $(_PLATFORM_FILES)
 
 ########### CUSTOMER ################################
@@ -681,8 +684,7 @@ endif
 include $(src)/phl/phl.mk
 
 
-obj-$(CONFIG_RTL8852CU) := $(MODULE_NAME).o
-obj-$(CONFIG_RTL8852CU) := $(MODULE_NAME).o
+obj-m := $(MODULE_NAME).o
 $(MODULE_NAME)-y = $(OBJS)
 
 ############# MEMORY MANAGMENT #############

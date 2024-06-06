@@ -926,7 +926,7 @@ void rtw_cfg80211_radar_detected_event(struct rf_ctl_t *rfctl, u8 band_idx
 {
 	struct dvobj_priv *dvobj = rfctl_to_dvobj(rfctl);
 	struct wiphy *wiphy = dvobj_to_wiphy(dvobj); /* TODO: hwband specific wiphy mapping */
-	struct cfg80211_chan_def chdef;
+	struct cfg80211_chan_def chdef = {};
 
 	if (!rtw_cfg80211_get_radar_event_chdef(wiphy, &chdef, cch, bw, __func__))
 		return;
@@ -1022,7 +1022,7 @@ static void rtw_cfg80211_cac_event(struct rf_ctl_t *rfctl, u8 band_idx
 {
 	struct dvobj_priv *dvobj = rfctl_to_dvobj(rfctl);
 	struct wiphy *wiphy = dvobj_to_wiphy(dvobj); /* TODO: hwband specific wiphy mapping */
-	struct cfg80211_chan_def chdef;
+	struct cfg80211_chan_def chdef = {};
 	_adapter *iface;
 	int i;
 	bool async;
